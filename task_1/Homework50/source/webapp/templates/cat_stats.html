@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>Title</title>
+</head>
+<body>
+<div class="container">
+    {% if happiness <= 9 or satiety <= 0 %}
+        <img src="https://i.kym-cdn.com/photos/images/facebook/000/263/382/f39.jpg" alt="rage_cat">
+    {% elif happiness  >= 10 or satiety >= 1 %}
+        <img src="https://pbs.twimg.com/profile_images/737359467742912512/t_pzvyZZ_400x400.jpg" alt="cat">
+    {% endif %}
+    <p>Кот - {{ name }} {{ state }}</p>
+    <p>Возраст - {{ health }}</p>
+    <p>Уровень счастья - {{ happiness }}</p>
+    <p>Уровень сытости - {{ satiety }}</p>
+    <form action="{% url 'webapp:stats' %}" method="post">
+        {% csrf_token %}
+        <label for="action">Выберите действие</label>
+        <select name="action" id="action">
+            <option value="feed" id="feed">Покормить</option>
+            <option value="play" id="play">Поиграть</option>
+            <option value="sleep" id="sleep">Уложить спать</option>
+        </select>
+        <button type="submit">Подтвердить действие</button>
+    </form>
+</div>
+</body>
+</html>
